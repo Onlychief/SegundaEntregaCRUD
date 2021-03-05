@@ -1,5 +1,4 @@
-import { client } from "./config/mariadb.ts";
-import { dataUser } from "./DataUtils.ts";
+
 import { UsuariosModel } from './models/user.ts';
 import {UsuarioController} from './controllers/usuario.ts'
 
@@ -32,16 +31,7 @@ while (!salir) {
             console.log(usuarios);
             const opcion = parseInt(prompt("opcion: ") as string)
             console.log("Asigna nuevos valores al usuario");
-            const user2 = dataUser();
-            const update = await usuariosModel.actualizar({
-            nombre:user2.getNombre(), 
-            apellido:user2.getApellido(),
-            celular:user2.getCelular(),
-            correo:user2.getCorreo(),
-            contrasenia:user2.getPassword()},
-            opcion);
-            console.log(update);
-            console.log(usuarios)
+            await usuarioController.actualizar(opcion)
             break;
         }
         case "3": {
@@ -52,10 +42,8 @@ while (!salir) {
             const usuarios = await usuariosModel.listar();
             console.log(usuarios);
             const opcion = parseInt(prompt("opcion: ") as string);
-            const deleteRegister = await usuariosModel.eliminar(opcion);
-            console.log(deleteRegister)
-            const usuarios2 = await usuariosModel.listar();
-            console.log(usuarios2)
+            await usuarioController.eliminar(opcion)
+        
             break;
         }
         case "5": {

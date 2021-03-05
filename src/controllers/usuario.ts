@@ -8,9 +8,10 @@ const usuariosModel =  new UsuariosModel()
 
 export class UsuarioController{
 
- async listar(context: Context){
+ async listar(){
     const usuarios = await usuariosModel.listar();
-    context.response.body =usuarios
+    console.log(usuarios)
+    //context.response.body =usuarios
 }
 async create(){
 
@@ -22,5 +23,19 @@ async create(){
         correo: user.getCorreo(),
         contrasenia: user.getPassword(),
 })
+}
+async actualizar(id:number){
+    const user2 = dataUser();
+            const update = await usuariosModel.actualizar({
+            nombre:user2.getNombre(), 
+            apellido:user2.getApellido(),
+            celular:user2.getCelular(),
+            correo:user2.getCorreo(),
+            contrasenia:user2.getPassword()},
+            id)
+}
+async eliminar(id:number){
+    const deleteRegister = await usuariosModel.deletear(id);
+    
 }
 }

@@ -27,7 +27,7 @@ export class UsuariosModel {
             usuario.contrasenia,
             id])            
 }
-async eliminar(id:number){
+async deletear(id:number){
     await client.execute(`delete from datosuser WHERE id=?`,[id])
 }
 }
