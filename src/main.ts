@@ -1,8 +1,10 @@
 import { client } from "./config/mariadb.ts";
 import { dataUser } from "./DataUtils.ts";
 import { UsuariosModel } from './models/user.ts';
+import {UsuarioController} from './controllers/usuario.ts'
 
 const usuariosModel = new UsuariosModel();
+const usuarioController = new UsuarioController();
 
 function menu(): string {
 
@@ -22,18 +24,7 @@ while (!salir) {
 
     switch (opcion) {
         case "1": {
-            const user = dataUser();
-            await usuariosModel.crear({
-                nombre: user.getNombre(),
-                apellido: user.getApellido(),
-                celular: user.getCelular(),
-                correo: user.getCorreo(),
-                contrasenia: user.getPassword(),
-            }
-            )
-            const usuarios = await usuariosModel.listar();
-            console.log(usuarios);
-            
+            await usuarioController.create();
             break;
         }
         case "2": {
@@ -54,8 +45,7 @@ while (!salir) {
             break;
         }
         case "3": {
-            const usuarios = await usuariosModel.listar();
-            console.log(usuarios);
+            await usuarioController.listar()
             break;
         }
         case "4": {
